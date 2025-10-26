@@ -1,6 +1,9 @@
 {
   "name": "Duck Site",
   "short_name": "DuckSite",
+  "description": "A central hub for all Dragoon websites made by Duck Automata.",
+  "start_url": "/",
+  "scope": "/",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -11,6 +14,12 @@
       "src": "/android-chrome-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
   "theme_color": "#1E6654",
