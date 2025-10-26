@@ -1,13 +1,340 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <!-- <meta http-equiv="refresh" content="0; url='https://duckautomata.github.io/live-transcript/'" /> -->
-    </head>
-    <body>
-        <h3>
-            Duck Automata Sites
-        </h3>
-        <p>live-transcript <a href="https://duckautomata.github.io/live-transcript/">https://duckautomata.github.io/live-transcript/</a></p>
-        <p>dokisnake <a href="https://duckautomata.github.io/dokisnake/">https://duckautomata.github.io/dokisnake/</a></p>
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Duck Site</title>
+    <meta name="title" content="Duck Site">
+    <meta name="description" content="A central hub for all Dragoon websites made by Duck Automata.">
+    <meta name="theme-color" content="#1E6654"> <meta property="og:type" content="website">
+    <meta property="og:url" content="https://duckautomata.github.io/">
+    <meta property="og:title" content="Duck Site">
+    <meta property="og:description" content="A central hub for all Dragoon websites made by Duck Automata.">
+    <meta property="og:image" content="https://duckautomata.github.io/images/site_preview.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://duckautomata.github.io/">
+    <meta property="twitter:title" content="Duck Site">
+    <meta property="twitter:description" content="A central hub for all Dragoon websites made by Duck Automata.">
+    <meta property="twitter:image" content="https://duckautomata.github.io/images/site_preview.png">
+
+    <style>
+        /* --- Basic Page Styles --- */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1a202c;
+            margin-bottom: 40px;
+        }
+
+        .hub-description {
+            text-align: center;
+            font-size: 1.15rem;
+            color: #4a5568;
+            margin-top: 0;
+            margin-bottom: 40px;
+            max-width: 600px; /* Keeps it neat on wide screens */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* --- Site Grid Layout --- */
+        #site-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- Site Card Styles --- */
+        .site-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .site-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        /* --- Card Image Styles --- */
+        .site-card .display-image-link {
+            display: block;
+            height: 200px;
+            background-color: #e2e8f0;
+        }
+        
+        .site-card .display-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* --- Card Content Styles --- */
+        .card-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-content h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.4rem;
+        }
+
+        .card-content h3 a {
+            text-decoration: none;
+            color: #2d3748;
+            transition: color 0.2s ease;
+        }
+
+        .card-content h3 a:hover {
+            color: #4299e1;
+        }
+
+        .card-content .description {
+            font-size: 0.95rem;
+            color: #4a5568;
+            line-height: 1.5;
+            flex-grow: 1;
+            margin-bottom: 16px;
+        }
+        
+        .card-content .examples-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #718096;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .example-images {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .example-images img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 2px solid #edf2f7;
+            cursor: pointer; /* Makes it look clickable */
+            transition: opacity 0.2s ease;
+        }
+
+        .example-images img:hover {
+            opacity: 0.8;
+        }
+
+        /* --- Lightbox Modal Styles --- */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            padding-top: 20px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        .lightbox-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90vh;
+            width: auto;
+            height: auto;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .lightbox-close:hover,
+        .lightbox-close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        /* --- End of Lightbox Styles --- */
+
+    </style>
+</head>
+<body>
+
+    <h1>Duck Automata Websites</h1>
+    <p class="hub-description">
+        A central hub for all the websites I made for my fellow Dragoons.
+    </p>
+
+    <main id="site-grid"></main>
+
+    <div id="lightbox-modal" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
+    </div>
+
+    <script>
+        // =================================================================
+        // To add a new site, copy one of the blocks (from { to }, )
+        // and paste it at the TOP of this list.
+        
+        const sites = [
+            {
+                title: "Archived-Transcripts",
+                url: "./archived-transcript/",
+                description: "Search and view transcripts of a livestream! Use the site to: Search for where something was said. Graph word usage over time. And more.",
+                displayImage: "./images/archivedtranscript-main.png",
+                exampleImages: [
+                    "./images/archivedtranscript-example1.png"
+                ]
+            },
+            {
+                title: "Dokimotes",
+                url: "./dokimotes/",
+                description: "An archive of Dokibird's emotes to search through and use.",
+                displayImage: "./images/dokimotes-main.png",
+                exampleImages: [
+                    "./images/dokimotes-example1.png"
+                ]
+            },
+            {
+                title: "Live-Transcripts",
+                url: "./live-transcript/",
+                description: "View the transcript of an active or previously active livestream in near real-time! Use the site to: View what was said in the event you missed it or didn't hear it correctly. Playback and download audio segments for each transcribed line. Graph word usage over time. And much more.",
+                displayImage: "./images/livetranscript-main.png",
+                exampleImages: [
+                    "./images/livetranscript-example1.png",
+                    "./images/livetranscript-example2.png",
+                ]
+            },
+            {
+                title: "Dokisnake",
+                url: "./dokisnake/",
+                description: "It's snake. But with Dokibird's long neck trying to feed DAD some chicken.",
+                displayImage: "./images/dokisnake-main.png",
+                exampleImages: [
+                    "./images/dokisnake-example1.png",
+                    "./images/dokisnake-example2.png",
+                ]
+            },
+        ];
+        
+        // (No need to edit below this line)
+        // =================================================================
+
+        // These are defined globally so the 'onclick' attribute can find them
+        function openLightbox(imgSrc) {
+            const modal = document.getElementById('lightbox-modal');
+            const modalImg = document.getElementById('lightbox-img');
+            if (modal && modalImg) {
+                modalImg.src = imgSrc;
+                modal.style.display = 'flex'; // Show the modal
+            }
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('lightbox-modal');
+            if (modal) {
+                modal.style.display = 'none'; // Hide the modal
+            }
+        }
+
+        /**
+         * This function runs when the page loads.
+         */
+        document.addEventListener('DOMContentLoaded', () => {
+            const grid = document.getElementById('site-grid');
+            if (!grid) return;
+
+            const modal = document.getElementById('lightbox-modal');
+            const closeBtn = document.querySelector('.lightbox-close');
+            
+            if (modal && closeBtn) {
+                // Close when clicking the 'x' button
+                closeBtn.onclick = closeLightbox;
+                
+                // Close when clicking *outside* the image (on the dark background)
+                modal.onclick = function(event) {
+                    if (event.target === modal) {
+                        closeLightbox();
+                    }
+                }
+            }
+            // --- End of Lightbox Setup ---
+
+
+            // Loop through each site in our list
+            sites.forEach(site => {
+                // 1. Create the example images HTML
+                let exampleImagesHTML = '';
+                if (site.exampleImages && site.exampleImages.length > 0) {
+                    
+                    exampleImagesHTML += `<div class="examples-label">Examples</div>`;
+                    exampleImagesHTML += `<div class="example-images">`;
+                    site.exampleImages.forEach(imgSrc => {
+                        exampleImagesHTML += `<img src="${imgSrc}" alt="Example image for ${site.title}" onclick="openLightbox('${imgSrc}')">`;
+                    });
+                    exampleImagesHTML += `</div>`;
+                }
+
+                // 2. Create the full HTML for the card
+                const cardHTML = `
+                    <article class="site-card">
+                        <a href="${site.url}" target="_blank" rel="noopener noreferrer" class="display-image-link">
+                            <img src="${site.displayImage}" alt="${site.title} display" class="display-image">
+                        </a>
+                        <div class="card-content">
+                            <h3>
+                                <a href="${site.url}" target="_blank" rel="noopener noreferrer">${site.title}</a>
+                            </h3>
+                            <p class="description">${site.description || ''}</p>
+                            ${exampleImagesHTML}
+                        </div>
+                    </article>
+                `;
+
+                // 3. Add the new card's HTML to the grid
+                grid.innerHTML += cardHTML;
+            });
+        });
+    </script>
+
+</body>
 </html>
