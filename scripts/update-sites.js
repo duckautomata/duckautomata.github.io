@@ -38,7 +38,6 @@ async function main() {
     REPOS.forEach((repo, index) => {
         console.log(`${index + 1}. ${repo}`);
     });
-
     const answer = await askQuestion('\nEnter the numbers of the repos to update (comma separated, e.g., "1,3"): ');
     const indices = answer.split(',').map(s => parseInt(s.trim()) - 1).filter(i => !isNaN(i) && i >= 0 && i < REPOS.length);
 
