@@ -19,6 +19,7 @@ const PARENT_DIR = path.resolve(CURRENT_REPO_ROOT, '..');
 const REPOS = [
     'archived-transcript',
     'dokimotes',
+    'dokinomicon',
     'live-transcript',
     'dokisnake',
     'simple-text'
